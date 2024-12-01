@@ -1,2 +1,2 @@
 # pip_entornos
-Archivo añadido
+Proyecto que contiene el proyecto final de este curso
