@@ -1,20 +1,19 @@
 import random
-
+import os
 
 def opciones(usuario,pc):
-    print(f"usuario: {usuario}, pc: {pc}")
     if usuario == pc:
-        print("Empate")
+        return None
     elif usuario == "piedra" and pc == "papel":
-        print(f"{pc} gana a {usuario}. Gana la pc")
+        return True
     elif usuario == "papel" and pc == "tijeras":
-        print(f"{pc} gana a {usuario}. Gana la pc")
+        return True
     elif usuario == "tijeras" and pc == "piedra":
-        print(f"{pc} gana a {usuario}. Gana la pc")
+        return True
     else:
-        print(f"{usuario} gana a {pc}. Gana el usuario")
+        return False
 
-def pc_analiza(eleccion):
+def user_analiza(eleccion):
     choose =["piedra","papel","tijeras"]
     for n in choose:
         if eleccion == n:
@@ -23,21 +22,41 @@ def pc_analiza(eleccion):
     
 def run_game():
     contador = 0
-    usr_count = 0#
-    pc_count = 0# busca añadir un contador para visualizar al final quien gano, ademas podriamos programar que se este borrando y limpiando la pantalla cada vez
+    usr_count = 0
+    pc_count = 0
      
     while(contador < 3):
-        eleccion = input("Elige piedra, papel o tijeras: ")
-        eleccion = eleccion.lower()
-        pc = pc_analiza(eleccion)
+        print("")
+        usuario = input("Elige piedra, papel o tijeras: ")
+        usuario = usuario.lower()
+        pc = user_analiza(usuario)
+        if pc != False:
+            print(f"valor del Usuario: {usuario}, Valor de Pc: {pc}")
         if pc == False:
             continue
         else:
-            print("")
             print(f"Round {contador+1}")
-            opciones(eleccion,pc)
-            contador+=1
-        
+            resultado = opciones(usuario,pc)
+            if resultado == None:
+                print("Empate")
+            elif resultado == True:
+                print(f"{pc} gana a {usuario}. Gana la pc")
+                pc_count+=1
+            else:
+                print(f"{usuario} gana a la {pc}. Gana el usuario")
+                usr_count+=1
+            print("Marcador")
+            print(f"Usuario: {usr_count}, Pc: {pc_count}")
+
+        contador+=1
+    print("")
+    print("Resultado final: ")
+    if usr_count > pc_count:
+        print(f"Gano el usuario {usr_count} - {pc_count} a la pc")
+    elif pc_count > usr_count:
+        print(f"Gano la pc {pc_count} - {usr_count} al usuario")
+    else:
+        print("Empate entre la pc y el usuario")
         
             
 
